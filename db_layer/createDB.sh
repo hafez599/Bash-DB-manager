@@ -1,18 +1,39 @@
 #!/bin/bash
-pwd
-read -p "Please Enter Database Name: " name
+
+# Source validation functions at the start
+source ./Validation.sh
 
 mydir="./Databases"
 if [[ ! -d "$mydir" ]]; then
-    mkdir $mydir
+    mkdir "$mydir"
     echo "Databases Folder Created Successfully!"
 fi
-mydir="$mydir/$name"
 
-if [[ -d "$mydir" ]]; then
-    echo "Database With This Name Already Exit!"
-    echo "Please ENter Another Name."
-    else
-        mkdir $mydir
-        echo "Database Created Successfully."
-fi
+# Loop to allow re-entry if name is invalid
+while true; do
+    read -p "Please Enter Database Name: " name
+    
+    # Validate the name first
+    if ! validate_name "$name"; then
+        echo "Please try again."
+        continue
+    fi
+    
+    # Check if database already exists
+    if [[ -d "$mydir/$name" ]]; then
+        echo "Database With This Name Already Exists!"
+        echo "Please Enter Another Name."
+        continue
+    fi
+    
+    # Name is valid and unique, create database
+    break
+done
+
+# Create the database
+mydir="$mydir/$name"
+mkdir "$mydir"
+chmod +x "$mydir"
+echo "-----------------------------"
+echo "Database Created Successfully"
+echo "-----------------------------"
