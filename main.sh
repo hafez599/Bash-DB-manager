@@ -16,7 +16,7 @@ do
             break
             ;;
         "List Database")
-            echo "Listing databases..."
+            ./table_layer/createTable.sh
             break
             ;;
         "Connect Databases")
