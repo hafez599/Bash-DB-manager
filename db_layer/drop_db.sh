@@ -1,28 +1,62 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-read -p "Enter database name to drop: " db_name
+source ./Validation.sh
 
-if [ -z "$db_name" ]; then
-    echo "Error: Database name cannot be empty!"
-    exit 1
+mydir="./Databases"
+
+if [[ ! -d "$mydir" ]]; then
+    mkdir "$mydir"
+
 fi
 
-if [[ ! "$db_name" =~ ^[a-zA-Z0-9_]+$ ]]; then
-    echo "Error: Database name can only contain letters, numbers, and underscores."
-    exit 1
-fi
-
-if [ ! -d "$db_name" ]; then
-    echo "Database '$db_name' does not exist!"
-    exit 1
-fi
-
-read -p "Are you sure you want to delete '$db_name'? [y/n]: " confirm
-if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-    echo "Operation cancelled."
+db_list=($(ls -1 "$mydir" 2>/dev/null))
+if [[ ${#db_list[@]} -eq 0 ]]; then
+    echo "No Databases Found! Nothing to delete."
+    read -p "Do you want to return to Main Menu? [y/n]: " choice
+    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+        ./main.sh
+    else
+        echo "Exiting..."
+    fi
     exit 0
 fi
 
-rm -r "$db_name"
-echo "Database '$db_name' deleted successfully."
+while true; do
+    read -p "Please enter the Database name to drop: " dbname
+
+    if ! validate_name "$dbname"; then
+        echo "Invalid name. Please try again."
+        continue
+    fi
+
+    if [[ ! -d "$mydir/$dbname" ]]; then
+        echo "Database '$dbname' not found!"
+        read -p "Do you want to try again? [y/n]: " retry
+        if [[ "$retry" == "y" || "$retry" == "Y" ]]; then
+            continue
+        else
+            echo "Exiting..."
+            exit 1
+        fi
+    fi
+
+    read -p "Are you sure you want to delete '$dbname'? [y/n]: " confirm
+    if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
+        rm -r "$mydir/$dbname"
+        echo "-----------------------------"
+        echo "Database '$dbname' deleted successfully."
+        echo "-----------------------------"
+    else
+        echo "Deletion cancelled."
+    fi
+
+    read -p "Do you want to return to Main Menu? [y/n]: " choice
+    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+        ./main.sh
+    else
+        echo "Exiting..."
+    fi
+
+    break
+done
 

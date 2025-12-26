@@ -16,12 +16,17 @@ do
             ;;
         "List Database")
             ./db_layer/list_db.sh
+
+            break
             ;;
         "Connect Databases")
             ./db_layer/connectDB.sh
             ;;
         "Drop Database")
             echo "Dropping database..."
+            ./db_layer/drop_db.sh
+
+            break
             ;;
         *)
             echo "Invalid option, try again."
