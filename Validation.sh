@@ -1,1 +1,26 @@
 #!/bin/bash
+validate_name(){
+    name=$1
+
+    if [[ -z $name ]]; then
+        echo "Name Cannot Be Empty."
+        return 1
+    fi
+
+    if [[ ${#name} -gt 255 ]]; then 
+        echo "name cannot exceed 255 charcters."
+        return 1
+    fi
+
+    if [[ ! $name =~ ^[a-zA-Z_] ]]; then
+        echo "Error: Name must start with a letter or underscore"
+        return 1
+    fi
+
+    if [[ ! $name =~ ^[a-zA-Z0-9_]+$ ]]; then
+        echo "Error: Name can only contain letters, numbers, and underscores"
+        return 1
+    fi
+
+    return 0
+}

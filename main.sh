@@ -16,7 +16,8 @@ do
             break
             ;;
         "List Database")
-            echo "Listing databases..."
+            ./db_layer/list_db.sh
+
             break
             ;;
         "Connect Databases")
@@ -24,7 +25,8 @@ do
             break
             ;;
         "Drop Database")
-            echo "Dropping database..."
+            ./db_layer/drop_db.sh
+
             break
             ;;
         *)
