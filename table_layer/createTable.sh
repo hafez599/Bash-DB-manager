@@ -1,7 +1,7 @@
 #!/bin/bash
 source ./Validation.sh
 
-DB_NAME="hafez"
+DB_NAME=$1
 db_path="./Databases/$DB_NAME"
 counter=1
 sep=":"

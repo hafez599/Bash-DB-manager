@@ -13,19 +13,15 @@ do
     case $choice in 
         "Create Database")
             ./db_layer/createDB.sh
-            break
             ;;
         "List Database")
-            ./table_layer/createTable.sh
-            break
+            ./db_layer/list_db.sh
             ;;
         "Connect Databases")
             ./db_layer/connectDB.sh
-            break
             ;;
         "Drop Database")
             echo "Dropping database..."
-            break
             ;;
         *)
             echo "Invalid option, try again."

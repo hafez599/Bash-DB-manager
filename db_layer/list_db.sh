@@ -12,5 +12,3 @@ else
         ((count++))
     done
 fi
-
-
