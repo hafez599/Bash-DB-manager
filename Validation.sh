@@ -24,3 +24,18 @@ validate_name(){
 
     return 0
 }
+is_number(){
+    num=$1
+
+    if [[ -z $num ]]; then
+        echo "Data Cannot Be Empty."
+        return 1
+    fi
+
+    if [[ ! $num =~ ^[0-9]+$ ]]; then
+        echo "Error: Column must start with a number"
+        return 1
+    fi
+
+    return 0
+}

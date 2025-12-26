@@ -1,10 +1,10 @@
 #!/bin/bash
 
-export DNAME
+export DBNAME
 
-read -p "Please Enter Database Name: " DNAME
+read -p "Please Enter Database Name: " DBNAME
 
-if [[ ! -d "./Databases/$DNAME" ]]; then
+if [[ ! -d "./Databases/$DBNAME" ]]; then
     echo "Database Not Found please try again"
 else
     ./db_operations_menu.sh

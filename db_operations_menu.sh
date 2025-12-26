@@ -6,13 +6,13 @@ select choice in "Create Table" "List Tables" "Insert into Table" "Drop Table" "
 do
     case $choice in 
         "Create Table")
-            ./table_layer/createTable.sh "$DNAME"
+            ./table_layer/createTable.sh "$DBNAME"
             ;;
         "List Tables")
             ./db_layer/list_db.sh
             ;;
         "Insert into Table")
-            ./db_layer/connectDB.sh
+            ./record_layer/insert.sh "$DBNAME"
             ;;
         "Drop Table")
             echo "Dropping database..."
@@ -22,9 +22,6 @@ do
             ;;
         "Select From Table")
             ./db_layer/list_db.sh
-            ;;
-        "Insert into Table")
-            ./db_layer/connectDB.sh
             ;;
         "Update Table")
             echo "Dropping database..."
