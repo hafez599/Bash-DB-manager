@@ -58,6 +58,7 @@ while true; do
     else 
         echo "Table not found"\n
         echo "please try agian"\n
+        continue
     fi
     dararow="${dararow#$sep}"
     printf '%s\n' "$dararow" >> "$table"
