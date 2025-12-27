@@ -88,7 +88,7 @@ while true; do
             ;;
     esac
 
-    # عرض الجدول بعد الحذف
+    
     if [[ -s "$table" ]]; then
         echo "Current Table Content:"
         column -s: -t "$table"
