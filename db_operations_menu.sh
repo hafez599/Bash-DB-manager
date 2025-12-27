@@ -9,14 +9,14 @@ do
             ./table_layer/createTable.sh "$DBNAME"
             ;;
         "List Tables")
-            ./db_layer/list_db.sh
+            ./table_layer/list_tables.sh "$DBNAME"
             ;;
         "Insert into Table")
             ./record_layer/insert.sh "$DBNAME"
             ./db_operations_menu.sh
             ;;
         "Drop Table")
-            echo "Dropping database..."
+            ./table_layer/drop_table.sh "$DBNAME"
             ;;
         "Delete From Table")
             ./db_layer/createDB.sh
