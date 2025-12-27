@@ -19,10 +19,10 @@ do
             ./table_layer/drop_table.sh "$DBNAME"
             ;;
         "Delete From Table")
-            ./db_layer/createDB.sh
+            ./record_layer/deleteFromTable.sh "$DBNAME"
             ;;
         "Select From Table")
-            ./db_layer/list_db.sh
+            ./record_layer/selectFromTable.sh "$DBNAME"
             ;;
         "Update Table")
             ./record_layer/update.sh "$DBNAME"
