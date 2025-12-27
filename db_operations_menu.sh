@@ -13,6 +13,7 @@ do
             ;;
         "Insert into Table")
             ./record_layer/insert.sh "$DBNAME"
+            ./db_operations_menu.sh
             ;;
         "Drop Table")
             echo "Dropping database..."
@@ -24,7 +25,7 @@ do
             ./db_layer/list_db.sh
             ;;
         "Update Table")
-            echo "Dropping database..."
+            ./record_layer/update.sh "$DBNAME"
             ;;
         *)
             echo "Invalid option, try again."

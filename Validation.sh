@@ -39,3 +39,16 @@ is_number(){
 
     return 0
 }
+contain_PK(){
+    item="$1"
+    shift
+    pkarray=("$@")
+    for item in "${pkarray[@]}"; do
+        if [[ $coldata == $item ]]; then
+            echo "ERROR: Duplicated data for primary key."\n
+            echo "Please try again"\n
+            return 1
+        fi
+    done
+    return 0
+}

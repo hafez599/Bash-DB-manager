@@ -24,9 +24,15 @@ while true; do
                 flag=false
                 read -p "Please enter data for $((i+1)) column " coldata
                 if [[ $i -eq 0 && $pk == "yes" ]]; then
-                    if ! contain_PK "$coldata"  "${pkarray[@]}"; then
-                        continue
-                    else
+                    for item in "${pkarray[@]}"; do
+                        if [[ $coldata == $item ]]; then
+                            echo "ERROR: Duplicated data for primary key."\n
+                            echo "Please try again"\n
+                            flag=true
+                            break
+                        fi
+                    done
+                    if [[ $flag == "false" ]]; then
                         if [[ ${datatypearray[$i]} == "int" ]]; then
                             if ! is_number "$coldata"; then
                                 continue
