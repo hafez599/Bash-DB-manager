@@ -10,11 +10,11 @@ while true; do
     sep=":"
     typeset -i counter=0
     if [[ -f $table ]]; then
-        pk=$(awk -F: 'NR==1 {print $2}' $metadata)
-        colnum=$(awk -F: 'NR==2 {print NF}' $metadata)
-        mapfile -t namesarray < <(awk -F: 'NR==2 {for(i=1;i<=NF;i++) print $i}' $metadata)
-        mapfile -t datatypearray < <(awk -F: 'NR==3 {for(i=1;i<=NF;i++) print $i}' $metadata)
-        mapfile -t pkarray < <(awk -F: '{print $1}' $table)
+        pk=$(awk -F"$sep" 'NR==1 {print $2}' $metadata)
+        colnum=$(awk -F"$sep" 'NR==2 {print NF}' $metadata)
+        mapfile -t namesarray < <(awk -F"$sep" 'NR==2 {for(i=1;i<=NF;i++) print $i}' $metadata)
+        mapfile -t datatypearray < <(awk -F"$sep" 'NR==3 {for(i=1;i<=NF;i++) print $i}' $metadata)
+        mapfile -t pkarray < <(awk -F"$sep" '{print $1}' $table)
         flag=false
         echo "number of field is $colnum \n" 
         echo "PK is $pk"
@@ -25,6 +25,8 @@ while true; do
                 read -p "Please enter data for $((i+1)) column " coldata
                 if [[ $i -eq 0 && $pk == "yes" ]]; then
                     if ! contain_PK "$coldata"  "${pkarray[@]}"; then
+                        echo -e "ERROR: Duplicated data for primary key.\n"
+                        echo -e "Please try again.\n"
                         continue
                     else
                         if [[ ${datatypearray[$i]} == "int" ]]; then

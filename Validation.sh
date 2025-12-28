@@ -45,8 +45,6 @@ contain_PK(){
     pkarray=("$@")
     for val in "${pkarray[@]}"; do
         if [[ "$val" == "$search_value" ]]; then
-            echo -e "ERROR: Duplicated data for primary key.\n"
-            echo -e "Please try again.\n"
             return 1 
         fi
     done
