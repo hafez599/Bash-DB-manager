@@ -65,44 +65,77 @@ Run `./main.sh`, choose the database, then the "create table" option. The `creat
 - Prompt for column names (unique and validated),
 - Ask whether to enable a primary key, and then write metadata and table files.
 
-## Example: selectFromTable
+## Select Operation (Data Retrieval)
 
-Below is a simple, concrete example that demonstrates how the select operation works against a table stored in the flat-file format used by this project.
+This project supports a SELECT operation that retrieves data from tables stored in a flat-file format. Each table is represented by two files:
 
-Sample metadata and data files (delimiter = ':'):
+- Data file: <table_name>.SQL
+- Metadata file: .<table_name>.metadata
 
+Fields in data files are separated using a colon (:).
+
+Table structure example
 ```text
 # ./Databases/testdb/.users.metadata
 pk:yes
 id:name:age
 int:str:int
-
 # ./Databases/testdb/users.SQL
 1:Alice:30
 2:Bob:25
 3:Carol:30
 ```
+- Line 1: Indicates whether a primary key exists.
+- Line 2: Column names.
+- Line 3: Column data types.
+- Data file: each line is a row; values follow the metadata column order.
 
-Usage (interactive via the CLI):
-- Start the app:
-```bash
-./main.sh
-```
-- Connect to the `testdb` database (Connect to DB).
-- From the DB operations menu choose the "Select" option, then choose the `users` table.
-- Choose whether to:
-  - Select all rows -> output:
-    ```
-    1:Alice:30
-    2:Bob:25
-    3:Carol:30
-    ```
-  - Select by condition (e.g., age = 30) -> output:
-    ```
-    1:Alice:30
-    3:Carol:30
-    ```
+How Select works
+- Reads data directly from the .SQL file using ':' as the field delimiter.
+- Filters rows using simple comparisons (string or numeric matches via awk).
+- Read-only: does not modify data or enforce datatype/PK constraints (those are enforced on insert/update).
 
-Notes:
-- Fields are colon-separated (:). Output shows raw stored rows; client scripts/menus parse and display columns.
-- Primary key and datatype constraints are enforced on insert/update; select simply reads and filters stored rows.
+Select options
+After connecting to a database and choosing Select, the user can choose:
+
+1. Select All Rows  
+   - Displays every row in the table.  
+   - Example output:
+     ```
+     1:Alice:30
+     2:Bob:25
+     3:Carol:30
+     ```
+
+2. Select by Primary Key  
+   - If pk:yes, retrieve a single row by primary key value.  
+   - Example:
+     Enter Primary Key value: 1  
+     Output:
+     ```
+     1:Alice:30
+     ```
+
+3. Select by Column Value  
+   - Filter rows by a column and value (e.g., age = 30).  
+   - Example:
+     Column: age  
+     Value: 30  
+     Output:
+     ```
+     1:Alice:30
+     3:Carol:30
+     ```
+
+4. Select Specific Column(s)  
+   - Display selected columns instead of full rows.  
+   - Example (name, age):
+     ```
+     Alice:30
+     Bob:25
+     Carol:30
+     ```
+
+Notes
+- Output is formatted at the CLI level; stored files remain unchanged.
+- No joins or complex queries supported — simple, flat-file retrieval only.
