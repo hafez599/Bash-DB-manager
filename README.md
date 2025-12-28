@@ -37,22 +37,6 @@ Shared utilities (e.g., `Validation.sh`) provide common validation and helper fu
 - Manipulation: shell builtins and standard Unix tools; high-performance in-place edits use awk (`awk -i inplace`) where needed.
 - Validation and control logic are implemented in modular Bash scripts (e.g., `Validation.sh`).
 
-## Project Structure (high level)
-- main.sh — CLI entry point / main menu.
-- db_layer/ — database-level operations:
-  - create_db.sh — create a new database (directory)
-  - drop_db.sh — drop an existing database
-  - list_db.sh — list databases
-  - connectDB.sh — connect to a database and launch DB operations menu
-- table_layer/ — table-level operations:
-  - createTable.sh — create table and metadata
-  - insert.sh — insert rows (expected)
-  - update.sh — update rows (expected)
-  - delete.sh — delete rows (expected)
-  - select.sh — query/select rows (expected)
-- Validation.sh — centralized validation functions for names, types, and input formats (sourced by other scripts)
-- README.md — this document
-
 ## Prerequisites
 - Linux / Unix-like environment (tested on GNU/Linux).
 - Bash (POSIX-compatible shell).
