@@ -64,3 +64,45 @@ Run `./main.sh`, choose the database, then the "create table" option. The `creat
 - Prompt for datatype (int/str) per column,
 - Prompt for column names (unique and validated),
 - Ask whether to enable a primary key, and then write metadata and table files.
+
+## Example: selectFromTable
+
+Below is a simple, concrete example that demonstrates how the select operation works against a table stored in the flat-file format used by this project.
+
+Sample metadata and data files (delimiter = ':'):
+
+```text
+# ./Databases/testdb/.users.metadata
+pk:yes
+id:name:age
+int:str:int
+
+# ./Databases/testdb/users.SQL
+1:Alice:30
+2:Bob:25
+3:Carol:30
+```
+
+Usage (interactive via the CLI):
+- Start the app:
+```bash
+./main.sh
+```
+- Connect to the `testdb` database (Connect to DB).
+- From the DB operations menu choose the "Select" option, then choose the `users` table.
+- Choose whether to:
+  - Select all rows -> output:
+    ```
+    1:Alice:30
+    2:Bob:25
+    3:Carol:30
+    ```
+  - Select by condition (e.g., age = 30) -> output:
+    ```
+    1:Alice:30
+    3:Carol:30
+    ```
+
+Notes:
+- Fields are colon-separated (:). Output shows raw stored rows; client scripts/menus parse and display columns.
+- Primary key and datatype constraints are enforced on insert/update; select simply reads and filters stored rows.
