@@ -69,7 +69,7 @@ while true; do
             read -p "Enter column name to filter by: " colfilter
             read -p "Enter value to search in '$colfilter': " valfilter
 
-            # احصل على index العمود
+          
             col_idx=-1
             for i in "${!colnames[@]}"; do
                 if [[ "${colnames[$i]}" == "$colfilter" ]]; then
